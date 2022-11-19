@@ -34,12 +34,26 @@ enum AttributeName {
 }
 
 class Skill {
+  SkillName id;
   String name;
   AttributeName governingAttribute;
   int totalLevel;
   int levelSinceLevelUp;
   bool isMajor;
 
-  Skill(this.name, this.governingAttribute, this.totalLevel, this.levelSinceLevelUp, this.isMajor); 
+  Skill(this.id, this.name, this.governingAttribute, this.totalLevel, this.levelSinceLevelUp, this.isMajor); 
+  
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id.index,
+      'name': name,
+      'governingAttribute': governingAttribute.index,
+      'totalLevel': totalLevel,
+      'levelSinceLevelUp': levelSinceLevelUp,
+      'isMajor': isMajor ? 1 : 0
+    };
+  }
+
+  
 }
 

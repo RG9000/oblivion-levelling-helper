@@ -1,10 +1,21 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:oblivion_skill_diary/provider/skill_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'model/skills.dart';
 
 void main() {
+  if (Platform.isWindows || Platform.isLinux) {
+    // Initialize FFI
+    sqfliteFfiInit();
+    // Change the default factory
+    databaseFactory = databaseFactoryFfi;
+  }
   runApp(const OblivionSkillDiaryApp());
 }
 
@@ -35,7 +46,16 @@ class _SkillTrackerPageState extends State<SkillTrackerPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<SkillProvider>(context, listen: false).loadFreshSkillMap();
+    Timer.periodic(Duration(milliseconds: 10000), (Timer t) {
+      Provider.of<SkillProvider>(context, listen: false).truncateSkills();
+      var skills = Provider.of<SkillProvider>(context, listen: false).skills;
+      skills.forEach((element) { 
+        Provider.of<SkillProvider>(context, listen: false).insertSkill(element);
+      });
+    } );
+    setState(() {
+      Provider.of<SkillProvider>(context, listen: false).loadFreshSkillMap();
+    });
   }
 
   @override
@@ -66,7 +86,7 @@ class _SkillTrackerPageState extends State<SkillTrackerPage> {
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('Level Progress'),
                 content: Column(mainAxisSize: MainAxisSize.min, children: Provider.of<SkillProvider>(context, listen: false).attributes.entries.map((value) => 
-                  Text("${value.key.name.toUpperCase()}: ${value.value} (+${getModifierForValue(value.value)})"),).toList()
+                  Text("${value.key.name.toUpperCase()}: ${Provider.of<SkillProvider>(context,listen:false).getAttributeIncreaseValue(value.key)} (+${getModifierForValue(Provider.of<SkillProvider>(context,listen:false).getAttributeIncreaseValue(value.key))})"),).toList()
                 ),
                 actions: <Widget>[
                   TextButton(
@@ -86,12 +106,10 @@ class _SkillTrackerPageState extends State<SkillTrackerPage> {
           child: Column(
               children: Provider.of<SkillProvider>(context)
                   .skills
-                  .entries
                   .map((value) {
         return SkillCard(
           isLevelLocked: _isLevelLocked,
-          skill: value.value,
-          skillKey: value.key,
+          skill: value,
         );
       }).toList())), Align(alignment: Alignment.bottomCenter, child: LinearProgressIndicator(value: Provider.of<SkillProvider>(context).progressTowardsLevelUp/10, minHeight: 30, color: Colors.amber, backgroundColor: Colors.amber.shade100,)),
     ]));
@@ -103,12 +121,11 @@ class SkillCard extends StatefulWidget {
       {Key? key,
       required this.isLevelLocked,
       required this.skill,
-      required this.skillKey})
+      })
       : super(key: key);
 
   bool isLevelLocked = false;
   Skill skill;
-  SkillName skillKey;
 
   @override
   State<SkillCard> createState() => _SkillCardState();
@@ -126,16 +143,17 @@ class _SkillCardState extends State<SkillCard> {
               child: Row(children: [
                 MajorSkillSignifier(
                     isLevelLocked: widget.isLevelLocked,
-                    skillKey: widget.skillKey,
+                    skillKey: widget.skill.id,
                     skill: widget.skill),
-                Text(widget.skill.name.padRight(30),
+                Text(widget.skill.name,
                     style:
                         const TextStyle(fontSize: 20, color: Colors.white70)),
-                
                 const Spacer(),
                 (!widget.isLevelLocked
                     ? IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Provider.of<SkillProvider>(context, listen: false).decrementSkill(widget.skill.id);
+                        },
                         icon: const Icon(
                           Icons.remove,
                           color: Colors.white70,
@@ -148,7 +166,7 @@ class _SkillCardState extends State<SkillCard> {
                     onPressed: () {
                       Provider.of<SkillProvider>(context, listen: false)
                           .incrementSkill(
-                              widget.isLevelLocked, widget.skillKey);
+                              widget.isLevelLocked, widget.skill.id);
                     },
                     icon: const Icon(Icons.add, color: Colors.white70)),
               ]),

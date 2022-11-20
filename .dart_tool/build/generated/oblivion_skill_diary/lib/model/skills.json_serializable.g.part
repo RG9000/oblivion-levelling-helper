@@ -1,0 +1,31 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Skill _$SkillFromJson(Map<String, dynamic> json) => Skill(
+      json['name'] as String,
+      $enumDecode(_$AttributeNameEnumMap, json['governingAttribute']),
+      json['totalLevel'] as int,
+      json['levelSinceLevelUp'] as int,
+      json['isMajor'] as bool,
+    );
+
+Map<String, dynamic> _$SkillToJson(Skill instance) => <String, dynamic>{
+      'name': instance.name,
+      'governingAttribute':
+          _$AttributeNameEnumMap[instance.governingAttribute]!,
+      'totalLevel': instance.totalLevel,
+      'levelSinceLevelUp': instance.levelSinceLevelUp,
+      'isMajor': instance.isMajor,
+    };
+
+const _$AttributeNameEnumMap = {
+  AttributeName.str: 'str',
+  AttributeName.int: 'int',
+  AttributeName.wil: 'wil',
+  AttributeName.agi: 'agi',
+  AttributeName.spd: 'spd',
+  AttributeName.end: 'end',
+  AttributeName.per: 'per',
+  AttributeName.luck: 'luck',
+};

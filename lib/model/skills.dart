@@ -1,3 +1,5 @@
+import 'attributes.dart';
+
 enum SkillName {
   blade,
   blunt,
@@ -22,18 +24,9 @@ enum SkillName {
   speechcraft
 }
 
-enum AttributeName {
-  str,
-  int,
-  wil,
-  agi,
-  spd,
-  end,
-  per,
-  luck;
-}
 
 class Skill {
+  int characterId;
   SkillName id;
   String name;
   AttributeName governingAttribute;
@@ -41,7 +34,7 @@ class Skill {
   int levelSinceLevelUp;
   bool isMajor;
 
-  Skill(this.id, this.name, this.governingAttribute, this.totalLevel, this.levelSinceLevelUp, this.isMajor); 
+  Skill(this.characterId, this.id, this.name, this.governingAttribute, this.totalLevel, this.levelSinceLevelUp, this.isMajor); 
   
   Map<String, dynamic> toMap() {
     return {

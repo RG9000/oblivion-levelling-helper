@@ -19,6 +19,6 @@ class Attribute
   Map<String, dynamic> toMap() =>
     {
       'id': id.index,
-      'fullName': fullName,
+      'name': fullName,
     };
 }

@@ -58,7 +58,7 @@ class Skill {
     {
       'id': id.index,
       'name': name,
-      'governingAttribute': governingAttributeId.index,
+      'governingAttributeId': governingAttributeId.index,
     };
 }
 

@@ -15,42 +15,39 @@ int getModifierForValue(int val) {
   }
 }
 
-Map<AttributeName, int> generateEmptyAttributeMap() {
-  return {
-      AttributeName.agi: 0,
-      AttributeName.end: 0,
-      AttributeName.int: 0,
-      AttributeName.luck: 0,
-      AttributeName.per: 0,
-      AttributeName.spd: 0,
-      AttributeName.str: 0,
-      AttributeName.wil: 0,
-    };
-}
+List<Attribute> generateEmptyAttributeMap() =>
+  [ 
+    Attribute(AttributeName.agi, "Agility"),
+    Attribute(AttributeName.end, "Endurance"),
+    Attribute(AttributeName.int, "Intelligence"),
+    Attribute(AttributeName.luck, "Luck"),
+    Attribute(AttributeName.per, "Personality"),
+    Attribute(AttributeName.spd, "Speed"),
+    Attribute(AttributeName.str, "Strength"),
+    Attribute(AttributeName.wil, "Willpower")
+  ];
 
-List<Skill> generateEmptySkillMap(int characterId)
-{
-  return [ 
-          Skill(characterId, SkillName.acrobatics, "Acrobatics", AttributeName.spd, 0, 0, false),
-          Skill(characterId, SkillName.alchemy, "Alchemy", AttributeName.int, 0, 0, false),
-          Skill(characterId, SkillName.alteration, "Alteration", AttributeName.wil, 0, 0, false),
-          Skill(characterId, SkillName.armorer, "Armorer", AttributeName.end, 0, 0, false),
-          Skill(characterId, SkillName.athletics, "Athletics", AttributeName.spd, 0, 0, false),
-          Skill(characterId, SkillName.blade, "Blade", AttributeName.str, 0, 0, false),
-          Skill(characterId, SkillName.block, "Block", AttributeName.end, 0, 0, false),
-          Skill(characterId, SkillName.blunt, "Blunt", AttributeName.str, 0, 0, false),
-          Skill(characterId, SkillName.conjuration, "Conjuration", AttributeName.int, 0, 0, false),
-          Skill(characterId, SkillName.destruction, "Destruction", AttributeName.wil, 0, 0, false),
-          Skill(characterId, SkillName.heavyArmor, "Heavy Armor", AttributeName.end, 0, 0, false),
-          Skill(characterId, SkillName.illusion, "Illusion", AttributeName.per, 0, 0, false),
-          Skill(characterId, SkillName.lightArmor, "Light Armor", AttributeName.spd, 0, 0, false),
-          Skill(characterId, SkillName.marksman, "Marksman", AttributeName.spd, 0, 0, false),
-          Skill(characterId, SkillName.mercantile, "Mercantile", AttributeName.per, 0, 0, false),
-          Skill(characterId, SkillName.mysticism, "Mysticism", AttributeName.int, 0, 0, false),
-          Skill(characterId, SkillName.restoration, "Restoration", AttributeName.wil, 0, 0, false),
-          Skill(characterId, SkillName.security, "Security", AttributeName.agi, 0, 0, false),
-          Skill(characterId, SkillName.sneak, "Sneak", AttributeName.agi, 0, 0, false),
-          Skill(characterId, SkillName.speechcraft, "Speechcraft", AttributeName.per, 0, 0, false),
-          Skill(characterId, SkillName.unarmed, "Hand to Hand", AttributeName.str, 0, 0, false)
-        ]; 
-}
+List<Skill> generateEmptySkillMap() =>
+  [ 
+    Skill(SkillName.acrobatics, "Acrobatics", AttributeName.spd),
+    Skill(SkillName.alchemy, "Alchemy", AttributeName.int),
+    Skill(SkillName.alteration, "Alteration", AttributeName.wil),
+    Skill(SkillName.armorer, "Armorer", AttributeName.end),
+    Skill(SkillName.athletics, "Athletics", AttributeName.spd),
+    Skill(SkillName.blade, "Blade", AttributeName.str),
+    Skill(SkillName.block, "Block", AttributeName.end),
+    Skill(SkillName.blunt, "Blunt", AttributeName.str),
+    Skill(SkillName.conjuration, "Conjuration", AttributeName.int),
+    Skill(SkillName.destruction, "Destruction", AttributeName.wil),
+    Skill(SkillName.heavyArmor, "Heavy Armor", AttributeName.end),
+    Skill(SkillName.illusion, "Illusion", AttributeName.per),
+    Skill(SkillName.lightArmor, "Light Armor", AttributeName.spd),
+    Skill(SkillName.marksman, "Marksman", AttributeName.spd),
+    Skill(SkillName.mercantile, "Mercantile", AttributeName.per),
+    Skill(SkillName.mysticism, "Mysticism", AttributeName.int),
+    Skill(SkillName.restoration, "Restoration", AttributeName.wil),
+    Skill(SkillName.security, "Security", AttributeName.agi),
+    Skill(SkillName.sneak, "Sneak", AttributeName.agi),
+    Skill(SkillName.speechcraft, "Speechcraft", AttributeName.per),
+    Skill(SkillName.unarmed, "Hand to Hand", AttributeName.str)
+  ]; 

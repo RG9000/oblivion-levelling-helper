@@ -1,3 +1,5 @@
-# oblivion_skill_diary
+# Oblivion Skill Diary
 
-TBD
+A cross-platform flutter app for tracking ES:IV Oblivion character skills.
+
+Under construction.

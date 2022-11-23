@@ -12,13 +12,13 @@ enum AttributeName {
 class Attribute
 {
   final AttributeName id;
-  final String fullName;
+  final String name;
 
-  Attribute(this.id, this.fullName);
+  Attribute(this.id, this.name);
 
   Map<String, dynamic> toMap() =>
     {
       'id': id.index,
-      'name': fullName,
+      'name': name,
     };
 }

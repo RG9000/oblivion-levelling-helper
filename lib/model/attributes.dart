@@ -39,4 +39,11 @@ class CharacterAttribute
       'attributeId': attributeId.index,
       'value': value
     };
+
+    Map<String, dynamic> toMapForInsert() =>
+    {
+      'characterId': characterId,
+      'attributeId': attributeId.index,
+      'value': value
+    };
 }

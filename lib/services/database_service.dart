@@ -28,9 +28,9 @@ static Future<Database> initDatabase([bool isTest = false])
         db.execute(
           '''CREATE TABLE Skills(id INTEGER, name TEXT, governingAttributeId INTEGER);
              CREATE TABLE Attributes(id INTEGER, name TEXT);
-             CREATE TABLE Characters(id INTEGER, name TEXT, level INTEGER);
-             CREATE TABLE CharacterAttributes(id INTEGER, characterId INTEGER, attributeId INTEGER, value INTEGER);
-             CREATE TABLE CharacterSkills(id INTEGER, characterId INTEGER, skillId INTEGER, totalLevel INTEGER, levelsSinceLevelUp INTEGER, isMajor INTEGER);
+             CREATE TABLE Characters(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, level INTEGER);
+             CREATE TABLE CharacterAttributes(id INTEGER PRIMARY KEY AUTOINCREMENT, characterId INTEGER, attributeId INTEGER, value INTEGER);
+             CREATE TABLE CharacterSkills(id INTEGER PRIMARY KEY AUTOINCREMENT, characterId INTEGER, skillId INTEGER, totalLevel INTEGER, levelsSinceLevelUp INTEGER, isMajor INTEGER);
              ''',
         );
         for (var attribute in generateEmptyAttributeMap())

@@ -1,5 +1,3 @@
-import 'attributes.dart';
-
 class Character
 {
   final int id;

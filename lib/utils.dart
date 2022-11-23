@@ -42,7 +42,7 @@ List<Skill> generateEmptySkillMap() =>
     Skill(SkillName.heavyArmor, "Heavy Armor", AttributeName.end),
     Skill(SkillName.illusion, "Illusion", AttributeName.per),
     Skill(SkillName.lightArmor, "Light Armor", AttributeName.spd),
-    Skill(SkillName.marksman, "Marksman", AttributeName.spd),
+    Skill(SkillName.marksman, "Marksman", AttributeName.agi),
     Skill(SkillName.mercantile, "Mercantile", AttributeName.per),
     Skill(SkillName.mysticism, "Mysticism", AttributeName.int),
     Skill(SkillName.restoration, "Restoration", AttributeName.wil),

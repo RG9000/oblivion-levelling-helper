@@ -80,6 +80,15 @@ class CharacterSkill
       'skillId': skillId.index,
       'totalLevel': totalLevel,
       'levelsSinceLevelUp': levelsSinceLevelUp,
-      'isMajor': isMajor
+      'isMajor': isMajor == false ? 0 : 1
+    };
+
+    Map<String, dynamic> toMapForInsert() =>
+    {
+      'characterId': characterId,
+      'skillId': skillId.index,
+      'totalLevel': totalLevel,
+      'levelsSinceLevelUp': levelsSinceLevelUp,
+      'isMajor': isMajor == false ? 0 : 1
     };
 }

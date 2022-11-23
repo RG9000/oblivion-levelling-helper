@@ -16,21 +16,5 @@ class Character
     };
 }
 
-class CharacterAttribute
-{
-  final int id;
-  final int characterId;
-  final AttributeName attributeId;
-  int value;
 
-  CharacterAttribute(this.id, this.characterId, this.attributeId, this.value);
-
-   Map<String, dynamic> toMap() =>
-    {
-      'id': id,
-      'characterId': characterId,
-      'attributeId': attributeId.index,
-      'value': value
-    };
-}
 

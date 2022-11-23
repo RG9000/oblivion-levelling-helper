@@ -12,6 +12,12 @@ class Character
       'name': name,
       'level': level
     };
+
+  Map<String, dynamic> toMapForInsert() =>
+    {
+      'name': name,
+      'level': level
+    };
 }
 
 

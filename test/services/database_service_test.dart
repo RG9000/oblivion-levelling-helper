@@ -1,7 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:oblivion_skill_diary/model/attributes.dart';
+import 'package:oblivion_skill_diary/model/detailed_character.dart';
 import 'package:oblivion_skill_diary/model/skills.dart';
 import 'package:oblivion_skill_diary/services/database_service.dart';
+import 'package:oblivion_skill_diary/utils.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -111,6 +113,68 @@ void main() {
         expect(numSkillsForAttribute, 3);
       }
     }
+  });
 
+test('Can add and read a character in database', () async {
+     
+    var character1Skills = [
+      CharacterSkill(1, 1, SkillName.acrobatics, 1,2, true),
+      CharacterSkill(2, 1, SkillName.alchemy, 3,4, false),
+      CharacterSkill(3, 1, SkillName.armorer, 5,6, true)
+    ];
+
+    var character1Attributes = [
+      CharacterAttribute(1,1,AttributeName.spd, 1),
+      CharacterAttribute(2,1,AttributeName.int, 2),
+      CharacterAttribute(3,1,AttributeName.end, 3),
+    ];
+    await DatabaseService.initDatabase(true) ;
+    var character1 = DetailedCharacter(0, "test1", 1, generateEmptySkillMap(), generateEmptyAttributeMap(), character1Skills, character1Attributes);
+    await DatabaseService.addCharacter(character1);
+    
+    var actual = await DatabaseService.getAllCharacters();
+
+    expect(actual.length, 1);
+    expect(actual[0].name, "test1");
+    expect(actual[0].level, 1);
+  });
+
+test('Can add and read multiple characters in database', () async {
+
+    var character1Skills = [
+      CharacterSkill(1, 1, SkillName.acrobatics, 1,2, true),
+      CharacterSkill(2, 1, SkillName.alchemy, 3,4, false),
+      CharacterSkill(3, 1, SkillName.armorer, 5,6, true)
+    ];
+
+    var character1Attributes = [
+      CharacterAttribute(1,1,AttributeName.spd, 1),
+      CharacterAttribute(2,1,AttributeName.int, 2),
+      CharacterAttribute(3,1,AttributeName.end, 3),
+    ];
+
+    var character2Skills = [
+      CharacterSkill(1, 2, SkillName.acrobatics, 1,2, true),
+      CharacterSkill(2, 2, SkillName.alchemy, 3,4, false),
+      CharacterSkill(3, 2, SkillName.armorer, 5,6, true)
+    ];
+
+    var character2Attributes = [
+      CharacterAttribute(1,2,AttributeName.spd, 1),
+      CharacterAttribute(2,2,AttributeName.int, 2),
+      CharacterAttribute(3,2,AttributeName.end, 3),
+    ];
+    await DatabaseService.initDatabase(true) ;
+    var character1 = DetailedCharacter(0, "test1", 1, generateEmptySkillMap(), generateEmptyAttributeMap(), character1Skills, character1Attributes);
+    var character2 = DetailedCharacter(0, "test1", 1, generateEmptySkillMap(), generateEmptyAttributeMap(), character2Skills, character2Attributes);
+
+    await DatabaseService.addCharacter(character1);
+    await DatabaseService.addCharacter(character2);
+    
+    var actual = await DatabaseService.getAllCharacters();
+
+    expect(actual.length, 2);
+    expect(actual[0].name, "test1");
+    expect(actual[0].level, 1);
   });
 }

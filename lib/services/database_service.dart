@@ -3,6 +3,9 @@ import 'package:oblivion_skill_diary/utils.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../model/attributes.dart';
+import '../model/character.dart';
+import '../model/detailed_character.dart';
 import '../model/skills.dart';
 
 class DatabaseService {
@@ -19,10 +22,31 @@ class DatabaseService {
     );
   }
 
+  static Future<List<Character>> getAllCharacters() async
+  {
+    final db = await database;
+    List<Map<String, dynamic>> characters = await db.query("Characters");
+    return characters.map((e) => Character(e["id"], e["name"], e["level"])).toList();
+  }
+
+  static Future addCharacter(DetailedCharacter character) async
+  {
+    final db = await database;
+    var characterId = await db.insert("Characters", Character(character.id, character.name, character.level).toMapForInsert());
+    for(var skill in character.skills)
+    {
+      db.insert("CharacterSkills", CharacterSkill(0, characterId, skill.id, skill.totalLevel, skill.levelSinceLevelUp, skill.isMajor).toMapForInsert());
+    }
+    for(var attribute in character.attributes)
+    {
+      db.insert("CharacterAttributes", CharacterAttribute(0, characterId, attribute.id, attribute.value).toMapForInsert());
+    }
+  }
+
 static Future<Database> initDatabase([bool isTest = false])
   async {
     WidgetsFlutterBinding.ensureInitialized();
-      return openDatabase( 
+      database = openDatabase( 
       join(await getDatabasesPath(), isTest ? 'oblivion_skills_database_test.db' : 'oblivion_skills_database.db'),
       onCreate: (db, version) {
         db.execute(
@@ -44,5 +68,6 @@ static Future<Database> initDatabase([bool isTest = false])
       },
       version: 1,
     );
+    return database;
   }
 }

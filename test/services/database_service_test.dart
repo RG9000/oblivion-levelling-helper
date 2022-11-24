@@ -116,7 +116,7 @@ void main() {
   });
 
 test('Can add and read a character in database', () async {
-     
+    databaseFactory.deleteDatabase(testdbpath); 
     var character1Skills = [
       CharacterSkill(1, 1, SkillName.acrobatics, 1,2, true),
       CharacterSkill(2, 1, SkillName.alchemy, 3,4, false),
@@ -140,7 +140,7 @@ test('Can add and read a character in database', () async {
   });
 
 test('Can add and read multiple characters in database', () async {
-
+    databaseFactory.deleteDatabase(testdbpath); 
     var character1Skills = [
       CharacterSkill(1, 1, SkillName.acrobatics, 1,2, true),
       CharacterSkill(2, 1, SkillName.alchemy, 3,4, false),

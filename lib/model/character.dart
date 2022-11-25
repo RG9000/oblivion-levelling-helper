@@ -1,7 +1,7 @@
 class Character
 {
-  final int id;
-  final String name;
+  int id;
+  String name;
   int level = 1;
 
   Character(this.id, this.name, this.level);

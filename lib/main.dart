@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:oblivion_skill_diary/pages/character_selection_page.dart';
 import 'package:oblivion_skill_diary/pages/skill_tracker_page.dart';
-import 'package:oblivion_skill_diary/provider/skill_provider.dart';
+import 'package:oblivion_skill_diary/provider/state_provider.dart';
+import 'package:oblivion_skill_diary/services/database_service.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -23,11 +25,12 @@ class OblivionSkillDiaryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (_) => SkillProvider(),
-        child: Consumer<SkillProvider>(
-            builder: (context, model, child) => const MaterialApp(
+        create: (_) => StateProvider(DatabaseService()),
+        child: Consumer<StateProvider>(
+            builder: (context, model, child) => MaterialApp(
                   debugShowCheckedModeBanner: false,
-                  home: SkillTrackerPage(),
+                  theme: ThemeData.from(colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey)),
+                  home: const CharacterSelectionPage(),
                 )));
   }
 }

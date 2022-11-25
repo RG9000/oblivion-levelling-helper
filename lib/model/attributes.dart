@@ -34,16 +34,9 @@ class CharacterAttribute
 
    Map<String, dynamic> toMap() =>
     {
-      'id': id,
       'characterId': characterId,
       'attributeId': attributeId.index,
       'value': value
     };
 
-    Map<String, dynamic> toMapForInsert() =>
-    {
-      'characterId': characterId,
-      'attributeId': attributeId.index,
-      'value': value
-    };
 }

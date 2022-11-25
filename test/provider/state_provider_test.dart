@@ -4,7 +4,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:oblivion_skill_diary/provider/state_provider.dart';
 import 'package:oblivion_skill_diary/services/database_service.dart';
-import 'package:sqflite/sqflite.dart';
 
 import 'state_provider_test.mocks.dart';
 

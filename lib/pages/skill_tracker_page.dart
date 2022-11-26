@@ -1,12 +1,8 @@
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/state_provider.dart';
-import '../utils.dart';
-import '../widgets/skill_card.dart';
 
 class SkillTrackerPage extends StatefulWidget {
   const SkillTrackerPage({Key? key}) : super(key: key);

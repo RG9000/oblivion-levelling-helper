@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:oblivion_skill_diary/provider/state_provider.dart';
 import 'package:provider/provider.dart';
@@ -40,13 +38,14 @@ class _CharacterSelectionPageState extends State<CharacterSelectionPage> {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                       children: characters
-                          .map((e) => CharacterCard(character: e))
+                          .map((e) => CharacterCard(key: Key("character_card_${e.id}"), character: e))
                           .toList())),
             ))
           : Center(
               child: Column(children: [
               const Spacer(),
               IconButton(
+                key: const Key("centralized_add_button"),
                 onPressed: () => {},
                 iconSize: 100,
                 icon: const Icon(Icons.add_circle_outline),
@@ -55,6 +54,7 @@ class _CharacterSelectionPageState extends State<CharacterSelectionPage> {
             ])),
       floatingActionButton: characters.isNotEmpty
           ? FloatingActionButton(
+              key: const Key("floating_add_button"),
               onPressed: () {},
               tooltip: 'Add New Character',
               child: const Icon(Icons.add),

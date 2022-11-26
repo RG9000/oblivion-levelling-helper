@@ -1,21 +1,28 @@
 import 'package:flutter/widgets.dart';
-import 'package:oblivion_skill_diary/model/skills.dart';
 import 'package:oblivion_skill_diary/services/database_service.dart';
-import 'package:oblivion_skill_diary/utils.dart';
-import 'package:sqflite/sqflite.dart';
 
-import '../model/attributes.dart';
+import '../model/character.dart';
 
-class SkillProvider extends ChangeNotifier {
+
+class StateProvider extends ChangeNotifier {
   
-  List <Skill> skills = [];
-  Map<AttributeName, int> attributes = {};
-  int progressTowardsLevelUp = 0;
-  late Database database;
+  DatabaseService dbService;
+  late Future isInitialized;
 
-  void init() async
+  StateProvider(this.dbService)
   {
-    database = await DatabaseService.initDatabase();
+    isInitialized = _init();
+  }
+
+  Future _init() async
+  {
+    await dbService.initDatabase();
+  }
+
+  Future<List<Character>> getAllCharacters() async
+  {
+    await isInitialized;
+    return await dbService.getAllCharacters();
   }
 
   // void instantializeCharacter(int characterId)

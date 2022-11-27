@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:oblivion_skill_diary/pages/character_creation_page.dart';
 import 'package:oblivion_skill_diary/provider/state_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +29,14 @@ class _CharacterSelectionPageState extends State<CharacterSelectionPage> {
     super.initState();
   }
 
+  void goToCharacterCreationPage()
+  {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CharacterCreationPage(nextCharacterId: characters.isEmpty ? 1 : characters.map((e) => e.id).reduce(max) + 1)),
+  );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +57,7 @@ class _CharacterSelectionPageState extends State<CharacterSelectionPage> {
               const Spacer(),
               IconButton(
                 key: const Key("centralized_add_button"),
-                onPressed: () => {},
+                onPressed: () => {goToCharacterCreationPage()},
                 iconSize: 100,
                 icon: const Icon(Icons.add_circle_outline),
               ),
@@ -55,7 +66,7 @@ class _CharacterSelectionPageState extends State<CharacterSelectionPage> {
       floatingActionButton: characters.isNotEmpty
           ? FloatingActionButton(
               key: const Key("floating_add_button"),
-              onPressed: () {},
+              onPressed: () => {goToCharacterCreationPage()},
               tooltip: 'Add New Character',
               child: const Icon(Icons.add),
             )

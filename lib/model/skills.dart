@@ -39,6 +39,14 @@ class Skill {
     };
 }
 
+class PickableSkill extends Skill {
+
+  bool isPicked = false; 
+  
+  PickableSkill(super.id, super.name, super.governingAttributeId, this.isPicked);
+
+}
+
 class CharacterSkill
 {
   final int id;
